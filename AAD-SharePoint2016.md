@@ -2,6 +2,8 @@
 
 Learn how to use the Azure Access Control Service to authenticate your SharePoint Server 2016 users with Azure Active Directory.
 
+> This article refers to code samples for interacting with Azure AD Graph. [Sample PowerShell scripts](scripts/readme.md) are available online to accompany this article.
+
 SharePoint Server 2016 provides the ability to authenticate users using claims-based authentication, making it easy to manage your users by authenticating them with different identity providers that you trust but someone else manages. For example, instead of managing user authentication through Active Directory Domain Services (AD DS), you could enable users to authenticate using Azure Active Directory (Azure AD). This enables authentication for cloud-only users with the onmicrosoft.com suffix in their username, users synchronized with an on-premises directory, and invited guest users from other directories. It also enables you to take advantage of Azure AD features such as conditional access, multi-factor access support, conditional access policies, and advanced reporting capabilities.
 
 This article explains how you can use Azure AD to authenticate your users instead of your on-premises AD DS. In this configuration, Azure AD becomes a trusted identity provider for SharePoint Server 2016. This configuration adds a user authentication method that is separate from the AD DS authentication used by the SharePoint Server 2016 installation itself. To benefit from this article, you should be familiar with WS-Federation. For more information, see [Understanding WS-Federation](https://go.microsoft.com/fwlink/p/?linkid=188052).
