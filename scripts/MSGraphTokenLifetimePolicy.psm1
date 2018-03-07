@@ -202,7 +202,7 @@ function Add-TokenIssuancePolicy(
     }
 
     # Add default parameters
-    $parameters.Add("policyType", "17");
+    $parameters.Add("type", "TokenIssuancePolicy");
 
     $policyParameters = @{
         "SigningAlgorithm" = $SigningAlgorithm;
@@ -217,10 +217,10 @@ function Add-TokenIssuancePolicy(
     $policyChunk = DictionaryToObject @{ "TokenIssuancePolicy"= $policyDefinition; }
     $policyChunkJSON = ConvertTo-Json -InputObject $policyChunk -Depth 10 -Compress
 
-    Add-Member -InputObject $payload -MemberType NoteProperty -Name "policyDetail" -Value @($policyChunkJSON)
+    Add-Member -InputObject $payload -MemberType NoteProperty -Name "definition" -Value @($policyChunkJSON)
 
     $jsonPayload = ConvertTo-Json -InputObject $payload -Depth 10 -Compress
-
+    
     return InvokeMSGraphAPI -uri $uri -HttpMethod "POST" -body $jsonPayload
 }
 
@@ -374,7 +374,7 @@ function GetPoliciesAssignedToEntityUrl($entity, $entityId)
 {
 	Write-Host "GetPoliciesAssignedToEntityUrl: Using graph endpoint: $global:graphEndpoint entity: $entity entityId: $entityId"
     $apiVersionParameter = GetApiVersionParameter($true)
-    return  ("{0}/myorganization/{1}/{2}/{3}?{4}" -f $global:graphEndpoint, $entity, $entityId, "defaultPolicy", $apiVersionParameter)
+    return  ("{0}/myorganization/{1}/{2}/{3}?{4}" -f $global:graphEndpoint, $entity, $entityId, "policies", $apiVersionParameter)
 }
 
 function ValidateArgument($argName, $argument)
@@ -389,7 +389,7 @@ function AssignPolicyToEntity($policyId, $entity, $entityId)
 {
     Write-Host "AssignPolicyToEntity: Using graph endpoint: $global:graphEndpoint entity: $entity entityId: $entityId"
     $apiVersionParameter = GetApiVersionParameter($true)
-    $uri = "{0}/myorganization/{1}/{2}/`$links/defaultPolicy?{3}" -f $global:graphEndpoint, $entity, $entityId, $apiVersionParameter
+    $uri = "{0}/myorganization/{1}/{2}/`$links/policies?{3}" -f $global:graphEndpoint, $entity, $entityId, $apiVersionParameter
 
     $policyUri = GetPolicyUrl -policyId $policyId -internal $true
     $payloadData = DictionaryToObject @{ "url"= $policyUri; }
@@ -402,7 +402,7 @@ function RemovePolicyFromEntity($policyId, $entity, $entityId)
 {
     Write-Host "AssignPolicyToEntity: Using graph endpoint: $global:graphEndpoint entity: $entity entityId: $entityId"
     $apiVersionParameter = GetApiVersionParameter($true)
-    $uri = "{0}/myorganization/{1}/{2}/`$links/defaultPolicy/{3}?{4}" -f $global:graphEndpoint, $entity, $entityId, $policyId, $apiVersionParameter
+    $uri = "{0}/myorganization/{1}/{2}/`$links/policies/{3}?{4}" -f $global:graphEndpoint, $entity, $entityId, $policyId, $apiVersionParameter
 
     return InvokeMSGraphAPI -uri $uri -HttpMethod "DELETE"
 }
