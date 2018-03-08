@@ -1,5 +1,5 @@
 # Using Microsoft Azure Active Directory for Authentication with SharePoint Server 2016
-This folder contains the sample scripts used with the article [Using Microsoft Azure Active Directory for Authentication with SharePoint Server 2016](../aad-sharepoint2016.md).
+This folder contains the sample scripts used with the article [Using Azure AD for SharePoint Server Authentication](https://docs.microsoft.com/en-us/office365/enterprise/using-azure-ad-for-sharepoint-server-authentication).
 
 ## Contents
 The following files accompany the article:
