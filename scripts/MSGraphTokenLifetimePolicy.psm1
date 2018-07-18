@@ -328,7 +328,7 @@ function InvokeMSGraphAPI($uri, $HttpMethod = "GET", $body = "")
     $parameters = @{
         "Method" = $HttpMethod;
         "Uri" = $uri;
-        "Headers" = @{"Authorization"=$authHeader; "Content-Type"="application/json"};
+        "Headers" = @{"Authorization"=$authHeader};
     }
 
     if($bodyMethods -contains $HttpMethod)
@@ -336,7 +336,7 @@ function InvokeMSGraphAPI($uri, $HttpMethod = "GET", $body = "")
         $parameters.Add("Body", $body);
     }
 
-    $result = Invoke-RestMethod @parameters
+    $result = Invoke-RestMethod @parameters -ContentType "application/json"
     $returnValue = $result;
     if ($result -ne $null) {
         if([bool]($result.PSobject.Properties.name -match "value"))
